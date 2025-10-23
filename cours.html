@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nos Cours - FitZone</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Navigation */
+        nav {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        nav .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        nav ul li a:hover {
+            opacity: 0.8;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9));
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+        }
+
+        /* Filters */
+        .filters {
+            background: #f8f9fa;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 1.5rem;
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        /* Cours Section */
+        .cours-section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .cours-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .cours-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cours-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .cours-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .cours-content {
+            padding: 1.5rem;
+        }
+
+        .cours-category {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .cours-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #667eea;
+        }
+
+        .cours-card p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .cours-details {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .cours-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .footer-section p {
+            color: #bdc3c7;
+            margin: 0.5rem 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .cours-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">FitZone</a>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="cours.html">Nos Cours</a></li>
+                <li><a href="planning.html">Planning</a></li>
+                <li><a href="tarifs.html">Tarifs</a></li>
+                <li><a href="about.html">À Propos</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="inscription.html">Inscription</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>Nos Cours Collectifs</h1>
+        <p>Plus de 50 cours par semaine avec des instructeurs certifiés</p>
+    </section>
+
+    <!-- Filters -->
+    <section class="filters">
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterCours('tous')">Tous</button>
+            <button class="filter-btn" onclick="filterCours('cardio')">Cardio</button>
+            <button class="filter-btn" onclick="filterCours('renforcement')">Renforcement</button>
+            <button class="filter-btn" onclick="filterCours('relaxation')">Relaxation</button>
+            <button class="filter-btn" onclick="filterCours('danse')">Danse</button>
+        </div>
+    </section>
+
+    <!-- Cours Section -->
+    <section class="cours-section">
+        <div class="cours-grid" id="coursGrid">
+            <!-- Cardio -->
+            <div class="cours-card" data-category="cardio">
+                <div class="cours-image">🏃</div>
+                <div class="cours-content">
+                    <span class="cours-category">Cardio</span>
+                    <h3>Spinning</h3>
+                    <p>Cours de vélo intense en groupe sur musique dynamique. Brûlez jusqu'à 600 calories par session !</p>
+                    <div class="cours-details">
+                        <span class="cours-info">⏱️ 45 min</span>
+                        <span class="cours-info">🔥 Intense</span>
+                        <span class="cours-info">👥 20 places</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cours-card" data-category="cardio">
+                <div class="cours-image">🥊</div>
+                <div class="cours-content">
+                    <span class="cours-category">Cardio</span>
+                    <h3>Boxing</h3>
+                    <p>Entraînement de boxe complet alliant cardio et technique. Parfait pour se défouler et tonifier.</p>
+                    <div class="cours-details">
+                        <span class="cours-info">⏱️ 60 min</span>
+                        <span class="cours-info">🔥 Intense</span>
+                        <span class="cours-info">👥 15 places</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cours-card" data-category="cardio">
+                <div class="cours-image">🏋️</div>
+                <div class="cours-content">
+                    <span class="cours-category">Cardio</span>
+                    <h3>HIIT</h3>
+                    <p>Entraînement par intervalles à haute intensité. Maximum de résultats en minimum de temps.</p>
+                    <div class="cours-details">
+                        <span class="cours-info">⏱️ 30 min</span>
+                        <span class="cours-info">🔥 Très intense</span>
+                        <span class="cours-info">👥 25 places</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Renforcement -->
+            <div class="cours-card" data-category="renforcement">
+                <div class="cours-image">💪</div>
+                <div class="cours-content">
+                    <span class="cours-category">Renforcement</span>
+                    <h3>CrossFit</h3>
+                    <p>Programme d'entraînement croisé pour développer force, endurance et agilité.</p>
+                    <div class="cours-details">
+                        <span class="cours-info">⏱️ 60 min</span>
+                        <span class="cours-info">🔥 Intense</span>
+                        <span class="cours-info">👥 12 places</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cours-card" data-category="renforcement">
+                <div class="cours-image">🏋️‍♀️</div>
+                <div class="cours-content">
+                    <span class="cours-category">Renforcement</span>
+                    <h3>Body Pump</h3>
+                    <p>Renforcement musculaire avec barres et poids sur chorégraphies motivantes.</p>
+                    <div class="cours-details">
+                        <span class="cours-info">⏱️ 55 min</span>
+                        <span class="cours-info">🔥 Modéré</span>
+                        <span class="cours-info">👥 30 places</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cours-card" data-category="renforcement">
+                <div class="cours-image">🤸</div>
+                <div class="cours-content">
+                    <span class="cours-category">Renforcement</span>
+                    <h3>TRX</h3>
+                    <p>Entraînement en suspension pour un renforcement musculaire complet et fonctionnel.</p>
+                    <div class="cours-details">
+                        <span class="cours-info">⏱️ 45 min</span>
+                        <span class="cours-info">🔥 Intense</span>
+                        <span class="cours-info">👥 15 places</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Relaxation -->
+            <div class="cours-card" data-category="relaxation">
+                <div class="cours-image">🧘</div>
+                <div class="cours-content">
+                    <span class="cours-category">Relaxation</span>
+                    <h3>Yoga Vinyasa</h3>
+                    <p>Enchaînements fluides de postures synchronisées avec la respiration. Équilibre corps et esprit.</p>
+                    <div class="cours-details">
+                        <span class="cours-info">⏱️ 60 min</span>
+                        <span class="cours-info">🔥 Doux</span>
+                        <span class="cours-info">👥 20 places</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cours-card" data-category="relaxation">
+                <div class="cours-image">🧘‍♀️</div>
+                <div class="cours-content">
+                    <span class="cours-category">Relaxation</span>
+                    <h3>Pilates</h3>
+                    <p>Renforcement des muscles profonds, amélioration de la posture et de la flexibilité.</p>
+                    <div class="cours-details">
+                        <span class="cours-info">⏱️ 50 min</span>
+                        <span class="cours-info">🔥 Doux</span>
+                        <span class="cours-info">👥 18 places</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cours-card" data-category="relaxation">
+                <div class="cours-image">🌅</div>
+                <div class="cours-content">
+                    <span class="cours-category">Relaxation</span>
+                    <h3>Stretching</h3>
+                    <p>Séance d'étirements pour améliorer votre souplesse et récupérer après l'effort.</p>
+                    <div class="cours-details">
+                        <span class="cours-info">⏱️ 30 min</span>
+                        <span class="cours-info">🔥 Très doux</span>
+                        <span class="cours-info">👥 25 places</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Danse -->
+            <div class="cours-card" data-category="danse">
+                <div class="cours-image">💃</div>
+                <div class="cours-content">
+                    <span class="cours-category">Danse</span>
+                    <h3>Zumba</h3>
+                    <p>Danse fitness sur rythmes latins. Brûlez des calories en vous amusant !</p>
+                    <div class="cours-details">
+                        <span class="cours-info">⏱️ 60 min</span>
+                        <span class="cours-info">🔥 Modéré</span>
+                        <span class="cours-info">👥 35 places</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cours-card" data-category="danse">
+                <div class="cours-image">🕺</div>
+                <div class="cours-content">
+                    <span class="cours-category">Danse</span>
+                    <h3>Dance Cardio</h3>
+                    <p>Chorégraphies dynamiques mixant différents styles de danse pour un cardio fun.</p>
+                    <div class="cours-details">
+                        <span class="cours-info">⏱️ 55 min</span>
+                        <span class="cours-info">🔥 Modéré</span>
+                        <span class="cours-info">👥 30 places</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cours-card" data-category="danse">
+                <div class="cours-image">🎵</div>
+                <div class="cours-content">
+                    <span class="cours-category">Danse</span>
+                    <h3>Step</h3>
+                    <p>Chorégraphies rythmées sur plateforme pour tonifier le bas du corps.</p>
+                    <div class="cours-details">
+                        <span class="cours-info">⏱️ 50 min</span>
+                        <span class="cours-info">🔥 Modéré</span>
+                        <span class="cours-info">👥 25 places</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>FitZone</h3>
+                <p>Votre partenaire fitness depuis 2015</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>123 Rue du Sport, 75001 Paris</p>
+                <p>Tel: 01 23 45 67 89</p>
+                <p>Email: contact@fitzone.fr</p>
+            </div>
+            <div class="footer-section">
+                <h3>Horaires</h3>
+                <p>Lundi - Dimanche</p>
+                <p>24h/24 - 7j/7</p>
+            </div>
+        </div>
+        <p>&copy; 2025 FitZone. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        function filterCours(category) {
+            const cards = document.querySelectorAll('.cours-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            // Update active button
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Filter cards
+            cards.forEach(card => {
+                if (category === 'tous' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarifs - FitZone</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Navigation */
+        nav {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        nav .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        nav ul li a:hover {
+            opacity: 0.8;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9));
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .pricing-card.featured {
+            border: 3px solid #667eea;
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured::before {
+            content: "POPULAIRE";
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: #667eea;
+            color: white;
+            padding: 0.5rem 3rem;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .pricing-header {
+            margin-bottom: 2rem;
+        }
+
+        .pricing-title {
+            font-size: 2rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-price {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-price span {
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .pricing-duration {
+            color: #999;
+            font-size: 1rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-icon {
+            color: #2ecc71;
+            font-size: 1.2rem;
+        }
+
+        .feature-icon.no {
+            color: #e74c3c;
+        }
+
+        .pricing-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .pricing-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Extra Services */
+        .extra-services {
+            background: #f8f9fa;
+            padding: 4rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .extra-services h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #667eea;
+            margin-bottom: 3rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .service-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-item h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .service-price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+            margin: 1rem 0;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 4rem 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #667eea;
+            margin-bottom: 3rem;
+        }
+
+        .faq-item {
+            background: white;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            background: #f8f9fa;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question:hover {
+            background: #e9ecef;
+        }
+
+        .faq-answer {
+            padding: 1.5rem;
+            display: none;
+        }
+
+        .faq-answer.active {
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .footer-section p {
+            color: #bdc3c7;
+            margin: 0.5rem 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .pricing-price {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">FitZone</a>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="cours.html">Nos Cours</a></li>
+                <li><a href="planning.html">Planning</a></li>
+                <li><a href="tarifs.html">Tarifs</a></li>
+                <li><a href="about.html">À Propos</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="inscription.html">Inscription</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>Nos Tarifs</h1>
+        <p>Choisissez la formule qui vous convient - Sans engagement</p>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section">
+        <div class="pricing-grid">
+            <!-- Découverte -->
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <h3 class="pricing-title">Découverte</h3>
+                    <div class="pricing-price">29€<span>/mois</span></div>
+                    <p class="pricing-duration">Sans engagement</p>
+                </div>
+                <ul class="pricing-features">
+                    <li><span class="feature-icon">✓</span> Accès salle musculation</li>
+                    <li><span class="feature-icon">✓</span> Zone cardio</li>
+                    <li><span class="feature-icon">✓</span> Horaires 9h-18h</li>
+                    <li><span class="feature-icon no">✗</span> Cours collectifs</li>
+                    <li><span class="feature-icon no">✗</span> Accès 24/7</li>
+                    <li><span class="feature-icon no">✗</span> Spa & Piscine</li>
+                </ul>
+                <a href="inscription.html" class="pricing-btn">Commencer</a>
+            </div>
+
+            <!-- Premium (Featured) -->
+            <div class="pricing-card featured">
+                <div class="pricing-header">
+                    <h3 class="pricing-title">Premium</h3>
+                    <div class="pricing-price">49€<span>/mois</span></div>
+                    <p class="pricing-duration">Sans engagement</p>
+                </div>
+                <ul class="pricing-features">
+                    <li><span class="feature-icon">✓</span> Accès illimité 24/7</li>
+                    <li><span class="feature-icon">✓</span> Tous les cours collectifs</li>
+                    <li><span class="feature-icon">✓</span> Zone cardio & musculation</li>
+                    <li><span class="feature-icon">✓</span> Vestiaires premium</li>
+                    <li><span class="feature-icon">✓</span> Application mobile</li>
+                    <li><span class="feature-icon no">✗</span> Spa & Piscine</li>
+                </ul>
+                <a href="inscription.html" class="pricing-btn">Commencer</a>
+            </div>
+
+            <!-- Elite -->
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <h3 class="pricing-title">Elite</h3>
+                    <div class="pricing-price">79€<span>/mois</span></div>
+                    <p class="pricing-duration">Sans engagement</p>
+                </div>
+                <ul class="pricing-features">
+                    <li><span class="feature-icon">✓</span> Tous les avantages Premium</li>
+                    <li><span class="feature-icon">✓</span> Coaching personnel (2 séances/mois)</li>
+                    <li><span class="feature-icon">✓</span> Accès Spa & Piscine</li>
+                    <li><span class="feature-icon">✓</span> Programme nutrition</li>
+                    <li><span class="feature-icon">✓</span> Suivi personnalisé</li>
+                    <li><span class="feature-icon">✓</span> Invitations VIP événements</li>
+                </ul>
+                <a href="inscription.html" class="pricing-btn">Commencer</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Extra Services -->
+    <section class="extra-services">
+        <h2>Services Supplémentaires</h2>
+        <div class="services-grid">
+            <div class="service-item">
+                <div class="service-icon">👨‍🏫</div>
+                <h3>Séance de coaching</h3>
+                <p>Coaching personnalisé individuel</p>
+                <div class="service-price">35€</div>
+                <p>par séance</p>
+            </div>
+            <div class="service-item">
+                <div class="service-icon">🥗</div>
+                <h3>Programme nutrition</h3>
+                <p>Plan alimentaire personnalisé</p>
+                <div class="service-price">50€</div>
+                <p>par mois</p>
+            </div>
+            <div class="service-item">
+                <div class="service-icon">💆</div>
+                <h3>Massage sportif</h3>
+                <p>Séance de massage 60min</p>
+                <div class="service-price">60€</div>
+                <p>par séance</p>
+            </div>
+            <div class="service-item">
+                <div class="service-icon">🏊</div>
+                <h3>Accès Spa journée</h3>
+                <p>Piscine, jacuzzi & sauna</p>
+                <div class="service-price">25€</div>
+                <p>par jour</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <h2>Questions Fréquentes</h2>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                Puis-je changer de formule en cours d'abonnement ?
+                <span>▼</span>
+            </div>
+            <div class="faq-answer">
+                Oui, vous pouvez changer de formule à tout moment. Le changement sera effectif dès le mois suivant.
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                Y a-t-il des frais d'inscription ?
+                <span>▼</span>
+            </div>
+            <div class="faq-answer">
+                Non, l'inscription est totalement gratuite. Vous ne payez que votre abonnement mensuel.
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                Puis-je suspendre mon abonnement ?
+                <span>▼</span>
+            </div>
+            <div class="faq-answer">
+                Oui, vous pouvez suspendre votre abonnement pour une durée de 1 à 3 mois (vacances, maladie, etc.).
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                Comment résilier mon abonnement ?
+                <span>▼</span>
+            </div>
+            <div class="faq-answer">
+                Aucun engagement : vous pouvez résilier à tout moment depuis votre espace membre ou en nous contactant.
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>FitZone</h3>
+                <p>Votre partenaire fitness depuis 2015</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>123 Rue du Sport, 75001 Paris</p>
+                <p>Tel: 01 23 45 67 89</p>
+                <p>Email: contact@fitzone.fr</p>
+            </div>
+            <div class="footer-section">
+                <h3>Horaires</h3>
+                <p>Lundi - Dimanche</p>
+                <p>24h/24 - 7j/7</p>
+            </div>
+        </div>
+        <p>&copy; 2025 FitZone. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const allAnswers = document.querySelectorAll('.faq-answer');
+            
+            allAnswers.forEach(a => {
+                if (a !== answer) {
+                    a.classList.remove('active');
+                }
+            });
+            
+            answer.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
